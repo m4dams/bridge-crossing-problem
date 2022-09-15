@@ -5,6 +5,10 @@ import picocli.CommandLine;
 
 public class App {
   public static void main(String[] args) {
-    new CommandLine(new Bridge()).execute("-s 20,23x45h78;11f");
+    if ((args[0].equals("-s") || args[0].equals("--speeds"))
+        && !(args[1].matches(".*\\d+.*"))) {
+      throw new IllegalArgumentException("String must contain at least 1 number");
+    }
+    new CommandLine(new Bridge()).execute(args);
   }
 }
